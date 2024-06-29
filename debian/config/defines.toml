@@ -1,0 +1,32 @@
+[[kernelarch]]
+name = 'x86'
+  [[kernelarch.debianarch]]
+  name = 'amd64'
+
+[[featureset]]
+name = 'none'
+
+[[featureset]]
+name = 'rt'
+enable = true
+  [featureset.description]
+  parts = ['rt']
+  [featureset.description.long]
+  rt = 'This kernel includes the PREEMPT_RT realtime patch set.'
+  [featureset.description.short]
+  rt = 'PREEMPT_RT'
+
+[build]
+compiler = 'gcc-12'
+
+[relations.image]
+depends = [
+  'initramfs-tools (>= 0.120+deb8u2) | linux-initramfs-tool',
+]
+recommends = [
+  'apparmor',
+]
+breaks = [
+  'fwupdate (<< 12-7)',
+  'wireless-regdb (<< 2019.06.03-1~)',
+]
