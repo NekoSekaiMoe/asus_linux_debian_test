@@ -30,6 +30,7 @@ jobs:
             
       - name: patch
         run: |
+          chmod +x -R linux-6.8.12/
           mv linux-6.8.12/* .
           git init
           git apply ./patches/*.patch
