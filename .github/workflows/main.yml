@@ -35,7 +35,12 @@ jobs:
       - name: patch
         run: |
           git clone https://salsa.debian.org/kernel-team/linux/ deb --depth=1
-          git apply deb/debian/patches/*.patch
+          git apply deb/debian/patches/bugfix/x86/*.patch
+          git apply deb/debian/patches/bugfix/all/*.patch
+          git apply deb/debian/patches/debian/*.patch
+          git apply deb/debian/patches/debian/dfsg/*.patch
+          git apply deb/debian/patches/features/x86/*.patch
+          git apply deb/debian/patches/features/all/*.patch
           git apply ./patches/*.patch
           mv ./asus_defconfig ./arch/x86/configs/
 
