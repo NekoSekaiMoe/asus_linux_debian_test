@@ -47,4 +47,10 @@ jobs:
         run: |
           export USE_CCACHE=1
           make -j8 
-          make -j8 deb-pkg
+          
+      - name: Package
+        env:
+          CC: "ccache gcc"
+        run: |
+          export USE_CCACHE=1
+          make -j8 deb-pkg V=1
