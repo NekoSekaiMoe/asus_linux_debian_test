@@ -22,7 +22,6 @@ jobs:
         with:
           repository: torvalds/linux
           ref: v6.9
-          path: linux
           fetch-depth: 1
 
       - name: Checkout Repo
@@ -35,24 +34,20 @@ jobs:
             
       - name: patch
         run: |
-          cd linux
           git clone https://salsa.debian.org/kernel-team/linux/ deb --depth=1
           git apply deb/debian/patches/*.patch
-          mv linux/* .
-          git apply ../patches/*.patch
-          mv ../asus_defconfig ./arch/x86/configs/
+          git apply ./patches/*.patch
+          mv ./asus_defconfig ./arch/x86/configs/
 
       - name: Configure
         run: |
-          cd linux
           make asus_defconfig
-          bash ../patch.sh
+          bash ./patch.sh
 
       - name: build
         env:
           CC: "ccache gcc"
         run: |
-          cd linux
           export USE_CCACHE=1
           make -j8 
           
@@ -60,6 +55,5 @@ jobs:
         env:
           CC: "ccache gcc"
         run: |
-          cd linux
           export USE_CCACHE=1
           make -j8 deb-pkg V=1
