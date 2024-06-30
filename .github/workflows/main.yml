@@ -22,6 +22,8 @@ jobs:
         with:
           repository: torvalds/linux
           ref: v6.9
+          path: linux
+          fetch-depth: 1
 
       - name: Checkout Repo
         uses: actions/checkout@v4
