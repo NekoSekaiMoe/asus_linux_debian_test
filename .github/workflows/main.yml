@@ -20,24 +20,24 @@ jobs:
       - name: Checkout linux
         run: apt source linux
 
-#      - name: Checkout Repo
-#        uses: actions/checkout@v4
+      - name: Checkout Repo
+        uses: actions/checkout@v4
 
-#      - name: Ccache for gh actions
-#        uses: hendrikmuhs/ccache-action@v1.2.13
-#        with:
-#          key: ee2b31d23ae6068c6aecc2e81e4b71c40ed72654
+      - name: Ccache for gh actions
+        uses: hendrikmuhs/ccache-action@v1.2.13
+        with:
+          key: ee2b31d23ae6068c6aecc2e81e4b71c40ed72654
             
       - name: patch
         run: |
-          ls && exit 127
+          cd linux-6.8.12/
           git init
           git apply ../patches/*.patch
           mv ../asus_defconfig arch/x86/configs/
 
       - name: Configure
         run: |
-          cd linux-*.*.*
+          cd linux-6.8.12/
           make asus_defconfig
           mv ../patch.sh .
           bash patch.sh
@@ -46,7 +46,7 @@ jobs:
         env:
           CC: "ccache gcc"
         run: |
-          cd linux-*.*.*
+          cd linux-6.8.12/
           export USE_CCACHE=1
           make -j8 
           
