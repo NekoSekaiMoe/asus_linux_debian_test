@@ -11,26 +11,26 @@ jobs:
     container: debian:trixie
     runs-on: ubuntu-latest
     steps:
-      - name: Install Build Tools
-        run: |
-          echo "deb-src http://deb.debian.org/debian/ trixie main contrib non-free" | tee -a /etc/apt/sources.list >/dev/null
-          apt update && apt install -y debhelper dpkg-dev build-essential patch bc bison flex libssl-dev libelf-dev git perl python3
+#      - name: Install Build Tools
+#        run: |
+#          echo "deb-src http://deb.debian.org/debian/ trixie main contrib non-free" | tee -a /etc/apt/sources.list >/dev/null
+#          apt update && apt install -y debhelper dpkg-dev build-essential patch bc bison flex libssl-dev libelf-dev git perl python3
                   
 
       - name: Checkout linux
         run: apt source linux
 
-      - name: Checkout Repo
-        uses: actions/checkout@v4
+#      - name: Checkout Repo
+#        uses: actions/checkout@v4
 
-      - name: Ccache for gh actions
-        uses: hendrikmuhs/ccache-action@v1.2.13
-        with:
-          key: ee2b31d23ae6068c6aecc2e81e4b71c40ed72654
+#      - name: Ccache for gh actions
+#        uses: hendrikmuhs/ccache-action@v1.2.13
+#        with:
+#          key: ee2b31d23ae6068c6aecc2e81e4b71c40ed72654
             
       - name: patch
         run: |
-          cd linux-*.*.*
+          ls && exit 127
           git init
           git apply ../patches/*.patch
           mv ../asus_defconfig arch/x86/configs/
