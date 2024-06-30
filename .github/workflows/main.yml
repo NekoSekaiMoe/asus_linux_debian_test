@@ -34,6 +34,7 @@ jobs:
             
       - name: patch
         run: |
+          set -x
           git clone https://salsa.debian.org/kernel-team/linux/ deb --depth=1
           git apply deb/debian/patches/bugfix/x86/*.patch
           git apply deb/debian/patches/bugfix/all/*.patch
@@ -41,6 +42,8 @@ jobs:
           git apply deb/debian/patches/debian/dfsg/*.patch
           git apply deb/debian/patches/features/x86/*.patch
           git apply deb/debian/patches/features/all/*.patch
+          git apply deb/debian/patches/features/all/lockdown/*.patch
+          git apply deb/debian/patches/features/all/db-mok-keyring/*.patch
           git apply ./patches/*.patch
           mv ./asus_defconfig ./arch/x86/configs/
 
@@ -62,3 +65,10 @@ jobs:
         run: |
           export USE_CCACHE=1
           make -j8 deb-pkg V=1
+      - name: Commit updates
+        run: |
+          git config user.name "dabao1955"
+          git config user.email "dabao1955@163.com"
+          make mrproper
+          git add .
+          git commit -m "add g14 changes"
