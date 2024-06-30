@@ -36,7 +36,7 @@ jobs:
         run: |
           set -x
           git clone https://salsa.debian.org/kernel-team/linux/ deb --depth=1
-          git apply deb/debian/patches/bugfix/x86/*.patch
+          git apply deb/debian/patches/bugfix/x86/revert-perf-build-fix-libunwind-feature-detection-on.patch deb/debian/patches/bugfix/x86/viafb-autoload-on-olpc-xo1.5-only.patch
           git apply deb/debian/patches/bugfix/all/*.patch
           git apply deb/debian/patches/debian/*.patch
           git apply deb/debian/patches/debian/dfsg/*.patch
