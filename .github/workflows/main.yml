@@ -30,23 +30,20 @@ jobs:
             
       - name: patch
         run: |
-          cd linux-6.8.12/
+          mv linux-6.8.12/* .
           git init
-          git apply ../patches/*.patch
-          mv ../asus_defconfig arch/x86/configs/
+          git apply ./patches/*.patch
+          mv ./asus_defconfig ./arch/x86/configs/
 
       - name: Configure
         run: |
-          cd linux-6.8.12/
           make asus_defconfig
-          mv ../patch.sh .
           bash patch.sh
 
       - name: build
         env:
           CC: "ccache gcc"
         run: |
-          cd linux-6.8.12/
           export USE_CCACHE=1
           make -j8 
           
@@ -54,6 +51,5 @@ jobs:
         env:
           CC: "ccache gcc"
         run: |
-          cd linux-*.*.*
           export USE_CCACHE=1
           make -j8 deb-pkg V=1
