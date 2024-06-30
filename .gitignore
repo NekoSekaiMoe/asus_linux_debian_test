@@ -1,0 +1,14 @@
+src
+pkg
+archlinux-linux
+*.tar.xz
+.vscode
+xanmod-rog-PKGBUILD
+linux
+test
+fedora-kernel-*.zip
+old
+old-mediatek
+new-mediatek
+*.tar.zst
+*.sig
