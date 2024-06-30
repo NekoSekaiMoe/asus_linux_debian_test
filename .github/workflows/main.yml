@@ -8,7 +8,7 @@ on:
 
 jobs:
   build-deb-amd64:
-    container: debian:trixie
+    container: debian:sid
     runs-on: ubuntu-latest
     steps:
       - name: Install Build Tools
