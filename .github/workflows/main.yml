@@ -31,6 +31,7 @@ jobs:
       - name: patch
         run: |
           cd linux-6.8.12
+          git init
           git apply ../patches/*.patch
           mv ../asus_defconfig arch/x86/configs/
 
