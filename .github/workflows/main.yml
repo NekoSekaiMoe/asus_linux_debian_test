@@ -30,7 +30,7 @@ jobs:
             
       - name: patch
         run: |
-          cd linux-6.9.7
+          cd linux_6.8.12
           git apply ../patches/*.patch
           mv ../asus_defconfig arch/x86/configs/
 
