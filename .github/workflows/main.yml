@@ -12,50 +12,30 @@ jobs:
     steps:
       - name: Install Build Tools
         run: |
-          echo "deb-src [trusted=yes] http://deb.debian.org/debian/ sid main contrib non-free" | sudo tee -a /etc/apt/sources.list >/dev/null
-          sudo apt update && sudo apt install -y debhelper dpkg-dev build-essential patch bc bison flex libssl-dev libelf-dev git perl python3
+           sudo apt update && sudo apt install -y aria2c debhelper dpkg-dev build-essential patch bc bison flex libssl-dev libelf-dev git perl python3
                   
 
       - name: Checkout linux
-        run: sudo apt source linux
-
-      - name: Checkout Repo
-        run: git clone https://github.com/NekoSekaiMoe/asus_linux_debian_test g14
+        run: aria2c https://github.com/NekoSekaiMoe/asus_linux_debian_test/releases/download/v1/src.tar.xz && mkdir -p -v src && tar -xf src.tar.xz -C src
 
       - name: Ccache for gh actions
         uses: hendrikmuhs/ccache-action@v1.2.13
         with:
           key: ee2b31d23ae6068c6aecc2e81e4b71c40ed72654
-            
-      - name: patch
-        run: |
-          sudo chmod +x -R linux-6.9.7
-          cd linux-6.9.7
-          sudo git init
-          sudo git apply ../g14/patches/*.patch
-          sudo mv ../g14/asus_defconfig ./arch/x86/configs/
 
       - name: Configure
         run: |
-          cd linux-6.9.7
-          chmod +x -R ./*
+          cd src
           make asus_defconfig
-          bash ../g14/patch.sh
+          bash config.sh
 
       - name: build
         env:
           CC: "ccache gcc"
         run: |
-          cd linux-6.9.7
+          cd src
           export USE_CCACHE=1
-          make -j8 
+          make -j8 deb-pkg
           
-      - name: Package
-        env:
-          CC: "ccache gcc"
-        run: |
-          cd linux-6.9.7
-          export USE_CCACHE=1
-          make -j8 deb-pkg V=1
       - name: Commit updates
         run: ls 
