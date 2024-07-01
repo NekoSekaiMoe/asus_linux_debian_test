@@ -16,7 +16,7 @@ jobs:
                   
 
       - name: Checkout linux
-        run: aria2c https://github.com/NekoSekaiMoe/asus_linux_debian_test/releases/download/v1/src.tar.xz && mkdir -p -v src && tar -xf src.tar.xz -C src
+        run: aria2c https://github.com/NekoSekaiMoe/asus_linux_debian_test/releases/download/v1/src.tar.xz && mkdir -p -v src && tar -xf src.tar.xz
 
       - name: Ccache for gh actions
         uses: hendrikmuhs/ccache-action@v1.2.13
@@ -26,14 +26,12 @@ jobs:
       - name: Configure
         run: |
           cd src
-          ls
           make asus_defconfig
           bash config.sh
 
       - name: build
         env:
           CC: "ccache gcc"
-          ARCH: "x86"
         run: |
           cd src
           export USE_CCACHE=1
