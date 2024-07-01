@@ -26,12 +26,13 @@ jobs:
       - name: Configure
         run: |
           cd src
-          make asus_defconfig
+          make ARCH=x86 asus_defconfig
           bash config.sh
 
       - name: build
         env:
           CC: "ccache gcc"
+          ARCH: "x86"
         run: |
           cd src
           export USE_CCACHE=1
