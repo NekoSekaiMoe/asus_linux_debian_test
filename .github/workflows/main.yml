@@ -10,17 +10,18 @@ jobs:
   build-deb-amd64:
     runs-on: ubuntu-latest
     steps:
+      - uses: rokibhasansagar/slimhub_actions@main
       - name: Install Build Tools
         run: |
            sudo apt update && sudo apt install -y aria2 debhelper dpkg-dev build-essential patch bc bison flex libssl-dev libelf-dev git perl python3
                   
-
       - name: Checkout linux
         run: aria2c https://github.com/NekoSekaiMoe/asus_linux_debian_test/releases/download/v1/src.tar.xz && mkdir -p -v src && tar -xf src.tar.xz
 
       - name: Ccache for gh actions
         uses: hendrikmuhs/ccache-action@v1.2.13
         with:
+          size: 4G
           key: ee2b31d23ae6068c6aecc2e81e4b71c40ed72654
 
       - name: Configure
@@ -37,5 +38,8 @@ jobs:
           export USE_CCACHE=1
           make -j8 bindeb-pkg LOCALVERSION=-asud_linux_g14
           
-      - name: Commit updates
-        run: ls 
+      - name: Upload deb
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux
+          path: ./*.deb
