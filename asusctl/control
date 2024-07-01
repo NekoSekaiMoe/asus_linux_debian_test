@@ -1,0 +1,15 @@
+Source: asusctl
+Section: utils
+Priority: optional
+Maintainer: dabao1955 <dabao1955@163.com>
+Build-Depends: debhelper (>= 9),pkg-config, dpkg-dev,clang(>=16), cmake(>=3.10),
+ dh-cargo (>= 25),
+ cargo:native,
+ libstd-rust-dev
+Standards-Version: 6.0.11
+Homepage: https://gitlab.com/asus-linux/asusctl
+
+Package: moe-container-manager
+Architecture: any
+Depends: libusb-dev, systemd, libinput-dev,  fontconfig, hicolor-icon-theme,
+Description: A control daemon, tools, and a collection of crates for interacting with ASUS ROG laptops.
