@@ -1,8 +1,8 @@
 Running Debian GNU/Linux or that based linux in asus laptop
 ========
 
-[![](https://img.shields.io/github/license/dabao1955/kernel_build_action?style=for-the-badge&color=fee4d0&logo=apache&logoColor=fee4d0)](https://github.com/NekoSekaiMoe/asus_linux_debian_test/blob/main/LICENSE)
-[![](https://img.shields.io/github/actions/workflow/status/dabao1955/kernel_build_action/main.yml?style=for-the-badge&color=fee4d0&logo=githubactions&logoColor=fee4d0)](https://github.com/NekoSekaiMoe/asus_linux_debian_test/actions/workflows/main.yml)
+[![](https://img.shields.io/github/license/NekoSekaiMoe/asus_linux_debian_test?style=for-the-badge&color=fee4d0&logo=apache&logoColor=fee4d0)](https://github.com/NekoSekaiMoe/asus_linux_debian_test/blob/main/LICENSE)
+[![](https://img.shields.io/github/actions/workflow/status/NekoSekaiMoe/asus_linux_debian_test/main.yml?style=for-the-badge&color=fee4d0&logo=githubactions&logoColor=fee4d0)](https://github.com/NekoSekaiMoe/asus_linux_debian_test/actions/workflows/main.yml)
 
 ## refer or credits
 
