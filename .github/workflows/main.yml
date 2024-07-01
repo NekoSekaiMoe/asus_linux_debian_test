@@ -25,18 +25,27 @@ jobs:
           key: ee2b31d23ae6068c6aecc2e81e4b71c40ed72654
 
       - name: Configure
-        run: |
-          cd src
-          make asus_defconfig
-          bash config.sh
-
-      - name: build
         env:
           CC: "ccache gcc"
+          CXX: "ccache g++"
+          AR: "ccache ar"
         run: |
           cd src
           export USE_CCACHE=1
-          make -j8 bindeb-pkg LOCALVERSION=-asud_linux_g14
+          cp arch/x86_configs/asus_defconfig .config
+          #make asus_defconfig
+          bash config.sh
+          make olddefconfig bindeb-pkg -j8
+
+      #- name: build
+      #  env:
+      #    CC: "ccache gcc"
+      #    CXX: "ccache g++"
+      #    AR: "ccache ar"
+      #  run: |
+      #    cd src
+      #    export USE_CCACHE=1
+      #    make -j8 bindeb-pkg
           
       - name: Upload deb
         uses: actions/upload-artifact@v4
