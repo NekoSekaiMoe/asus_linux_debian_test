@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Install Build Tools
         run: |
-           sudo apt update && sudo apt install -y aria2c debhelper dpkg-dev build-essential patch bc bison flex libssl-dev libelf-dev git perl python3
+           sudo apt update && sudo apt install -y aria2 debhelper dpkg-dev build-essential patch bc bison flex libssl-dev libelf-dev git perl python3
                   
 
       - name: Checkout linux
