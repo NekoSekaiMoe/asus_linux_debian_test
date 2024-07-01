@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Install Build Tools
         run: |
-          echo "deb-src [trusted=yes] http://deb.debian.org/debian/ trixie main contrib non-free" | sudo tee -a /etc/apt/sources.list >/dev/null
+          echo "deb-src [trusted=yes] http://deb.debian.org/debian/ sid main contrib non-free" | sudo tee -a /etc/apt/sources.list >/dev/null
           sudo apt update && sudo apt install -y debhelper dpkg-dev build-essential patch bc bison flex libssl-dev libelf-dev git perl python3
                   
 
@@ -29,15 +29,15 @@ jobs:
             
       - name: patch
         run: |
-          sudo chmod +x -R linux-6.8.12
-          cd linux-6.8.12
+          sudo chmod +x -R linux-6.9.7
+          cd linux-6.9.7
           sudo git init
           sudo git apply ../g14/patches/*.patch
           sudo mv ../g14/asus_defconfig ./arch/x86/configs/
 
       - name: Configure
         run: |
-          cd linux-6.8.12
+          cd linux-6.9.7
           chmod +x -R ./*
           make asus_defconfig
           bash ../g14/patch.sh
@@ -46,7 +46,7 @@ jobs:
         env:
           CC: "ccache gcc"
         run: |
-          cd linux-6.8.12
+          cd linux-6.9.7
           export USE_CCACHE=1
           make -j8 
           
@@ -54,7 +54,7 @@ jobs:
         env:
           CC: "ccache gcc"
         run: |
-          cd linux-6.8.12
+          cd linux-6.9.7
           export USE_CCACHE=1
           make -j8 deb-pkg V=1
       - name: Commit updates
