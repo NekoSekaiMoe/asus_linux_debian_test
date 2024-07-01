@@ -20,7 +20,7 @@ jobs:
         run: sudo apt source linux
 
       - name: Checkout Repo
-        uses: actions/checkout@v4
+        run: git clone https://github.com/NekoSekaiMoe/asus_linux_debian_test g14
 
       - name: Ccache for gh actions
         uses: hendrikmuhs/ccache-action@v1.2.13
@@ -31,14 +31,14 @@ jobs:
         run: |
           cd linux-6.8.12
           git init
-          git apply ../patches/*.patch
-          mv ../asus_defconfig ./arch/x86/configs/
+          git apply ../g14/patches/*.patch
+          mv ../g14/asus_defconfig ./arch/x86/configs/
 
       - name: Configure
         run: |
           cd linux-6.8.12
           make asus_defconfig
-          bash ../patch.sh
+          bash ../g14/patch.sh
 
       - name: build
         env:
