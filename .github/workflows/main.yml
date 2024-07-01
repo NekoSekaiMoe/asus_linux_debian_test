@@ -29,14 +29,16 @@ jobs:
             
       - name: patch
         run: |
+          sudo chmod +x -R linux-6.8.12
           cd linux-6.8.12
-          git init
-          git apply ../g14/patches/*.patch
-          mv ../g14/asus_defconfig ./arch/x86/configs/
+          sudo git init
+          sudo git apply ../g14/patches/*.patch
+          sudo mv ../g14/asus_defconfig ./arch/x86/configs/
 
       - name: Configure
         run: |
           cd linux-6.8.12
+          chmod +x -R ./*
           make asus_defconfig
           bash ../g14/patch.sh
 
@@ -56,10 +58,4 @@ jobs:
           export USE_CCACHE=1
           make -j8 deb-pkg V=1
       - name: Commit updates
-        run: |
-          cd linux-6.8.12
-          git config user.name "dabao1955"
-          git config user.email "dabao1955@163.com"
-          make mrproper
-          git add .
-          git commit -m "add g14 changes"
+        run: ls 
