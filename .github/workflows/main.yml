@@ -26,7 +26,8 @@ jobs:
       - name: Configure
         run: |
           cd src
-          make ARCH=x86 asus_defconfig
+          ls arch/x86/configs/
+          make asus_defconfig
           bash config.sh
 
       - name: build
