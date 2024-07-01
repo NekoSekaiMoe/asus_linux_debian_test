@@ -1,0 +1,65 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build-deb-amd64:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Build Tools
+        run: |
+          echo "deb-src http://deb.debian.org/debian/ trixie main contrib non-free" | tee -a /etc/apt/sources.list >/dev/null
+          sudo apt update && sudo apt install -y debhelper dpkg-dev build-essential patch bc bison flex libssl-dev libelf-dev git perl python3
+                  
+
+      - name: Checkout linux
+        run: sudo apt suorce linux
+
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Ccache for gh actions
+        uses: hendrikmuhs/ccache-action@v1.2.13
+        with:
+          key: ee2b31d23ae6068c6aecc2e81e4b71c40ed72654
+            
+      - name: patch
+        run: |
+          cd linux-6.8.12
+          git init
+          git apply ../patches/*.patch
+          mv ../asus_defconfig ./arch/x86/configs/
+
+      - name: Configure
+        run: |
+          cd linux-6.8.12
+          make asus_defconfig
+          bash ../patch.sh
+
+      - name: build
+        env:
+          CC: "ccache gcc"
+        run: |
+          cd linux-6.8.12
+          export USE_CCACHE=1
+          make -j8 
+          
+      - name: Package
+        env:
+          CC: "ccache gcc"
+        run: |
+          cd linux-6.8.12
+          export USE_CCACHE=1
+          make -j8 deb-pkg V=1
+      - name: Commit updates
+        run: |
+          cd linux-6.8.12
+          git config user.name "dabao1955"
+          git config user.email "dabao1955@163.com"
+          make mrproper
+          git add .
+          git commit -m "add g14 changes"
