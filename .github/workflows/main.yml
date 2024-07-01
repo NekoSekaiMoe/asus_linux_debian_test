@@ -41,7 +41,7 @@ jobs:
         run: |
           cd src
           export USE_CCACHE=1
-          cp arch/x86_configs/asus_defconfig .config
+          cp arch/x86/configs/asus_defconfig .config
           #make asus_defconfig
           bash config.sh
           make olddefconfig bindeb-pkg -j8
