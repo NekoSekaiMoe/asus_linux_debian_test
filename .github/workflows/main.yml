@@ -21,7 +21,7 @@ jobs:
       - name: Ccache for gh actions
         uses: hendrikmuhs/ccache-action@v1.2.13
         with:
-          size: 4G
+          max-size: 8192M
           key: ee2b31d23ae6068c6aecc2e81e4b71c40ed72654
 
       - name: Configure
