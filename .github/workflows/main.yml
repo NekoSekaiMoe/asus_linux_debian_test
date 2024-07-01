@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Install Build Tools
         run: |
-          echo "deb-src http://deb.debian.org/debian/ trixie main contrib non-free" | tee -a /etc/apt/sources.list >/dev/null
+          echo "deb-src http://deb.debian.org/debian/ trixie main contrib non-free" | sudo tee -a /etc/apt/sources.list >/dev/null
           sudo apt update && sudo apt install -y debhelper dpkg-dev build-essential patch bc bison flex libssl-dev libelf-dev git perl python3
                   
 
