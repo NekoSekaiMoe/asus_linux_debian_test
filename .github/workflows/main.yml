@@ -73,6 +73,6 @@ jobs:
       - run: |
           cd src
           cp ../env/asusctl ./debian -Rv
-          apt update && apt build-dep .
+          apt update && apt build-dep . -y
       - run: |
           cd src && export PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig && dpkg-buildpackage -b -us -uc
