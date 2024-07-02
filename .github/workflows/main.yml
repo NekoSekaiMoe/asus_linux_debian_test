@@ -19,25 +19,19 @@ jobs:
           sudo rm -rf /usr/share/swift /usr/share/miniconda /usr/local/lib/node_modules /usr/share/mysql* /usr/local/lib/android/ /usr/lib/jvm/ /home/linuxbrew
           echo ---
           df -h
-             
       - name: Install Build Tools
         run: |
            sudo apt update && sudo apt install -y aria2 debhelper dpkg-dev build-essential patch bc bison flex libssl-dev libelf-dev git perl python3
-                  
       - name: Checkout linux
         run: aria2c https://github.com/NekoSekaiMoe/asus_linux_debian_test/releases/download/v1/src.tar.xz && mkdir -p -v src && tar -xf src.tar.xz
 
-      - name: Ccache for gh actions
-        uses: hendrikmuhs/ccache-action@v1.2.13
-        with:
-          max-size: 8192M
-          key: ee2b31d23ae6068c6aecc2e81e4b71c40ed72654
+#      - name: Ccache for gh actions
+#        uses: hendrikmuhs/ccache-action@v1.2.13
+#        with:
+#          max-size: 8192M
+#          key: ee2b31d23ae6068c6aecc2e81e4b71c40ed72654
 
-      - name: Configure
-        env:
-          CC: "ccache gcc"
-          CXX: "ccache g++"
-          AR: "ccache ar"
+      - name: Configure and build
         run: |
           cd src
           export USE_CCACHE=1
@@ -45,6 +39,7 @@ jobs:
           #make asus_defconfig
           bash config.sh
           make olddefconfig bindeb-pkg -j8
+          rm -rf ../*dbg*.deb
 
       #- name: build
       #  env:
@@ -55,7 +50,7 @@ jobs:
       #    cd src
       #    export USE_CCACHE=1
       #    make -j8 bindeb-pkg
-          
+
       - name: Upload deb
         uses: actions/upload-artifact@v4
         with:
@@ -76,3 +71,28 @@ jobs:
           apt update && apt build-dep . -y
       - run: |
           cd src && export PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig && dpkg-buildpackage -b -us -uc
+      - name: Upload deb
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux
+          path: ./*.deb
+
+  supergfxctl:
+    runs-on: ubuntu-latest
+    container: debian:trixie
+    steps:
+      - run: apt update && apt install git build-essential dpkg-dev -y
+      - run: |
+          git clone https://github.com/NekoSekaiMoe/asus_linux_debian_test env
+          git clone https://gitlab.com/asus-linux/supergfxctl src
+      - run: |
+          cd src
+          cp ../env/supergfxctl ./debian -Rv
+          apt update && apt build-dep . -y
+      - run: |
+          cd src && export PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig && dpkg-buildpackage -b -us -uc
+      - name: Upload deb
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux
+          path: ./*.deb

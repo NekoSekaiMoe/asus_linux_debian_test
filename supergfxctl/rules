@@ -1,0 +1,35 @@
+#!/usr/bin/make -f
+# SPDX-License-Identifier: Apache-2.0
+# This file is part of moe-container-manager.
+#
+# Copyright (c) 2024 dabao1955
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+export PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig
+
+ifeq ("$(origin VERBOSE)", "command line")
+  BUILD_VERBOSE = $(VERBOSE)
+endif
+ifndef BUILD_VERBOSE
+  BUILD_VERBOSE = 0
+endif
+
+ifeq ($(BUILD_VERBOSE),1)
+  Q =
+else
+  Q = @
+endif
+
+%:
+	$(Q)export PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig && dh $@

@@ -1,0 +1,7 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: supergfxctl
+Source: https://aur.archlinux.org/supergfxctl.git
+
+Files: *
+Copyright: 2024 dabao1955 <dabao1955@163.com>
+License: MPL-2.0
