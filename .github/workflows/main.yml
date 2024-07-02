@@ -73,4 +73,4 @@ jobs:
           cp ../env/asusctl ./debian -Rv
           sudo apt update && sudo apt build-dep .
       - run: |
-          sudo dpkg-buildpackage -b -us -uc
+          cd src && sudo dpkg-buildpackage -b -us -uc
