@@ -12,10 +12,6 @@ https://gitlab.com/asus-linux/asusctl
 
 https://gitlab.com/asus-linux/asus-linux-patchwork
 
-https://gitlab.com/asus-linux/supergfxctl-gex
-
-https://gitlab.com/asus-linux/adusctl-gex
-
 ## License
 
 MPL-2.0 for the patchwork and Apache-2.0 for debian build files
