@@ -64,7 +64,7 @@ jobs:
 
   asusctl:
     runs-on: ubuntu-latest
-    container: debian:bookworm
+    container: debian:trixie
     steps:
       - run: apt update && apt install git build-essential dpkg-dev -y
       - run: |
