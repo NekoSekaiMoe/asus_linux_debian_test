@@ -16,6 +16,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+export PKG_CONFIG_PATH=/usr/lib/$(arch)-linux-gnu/pkgconfig
+
 ifeq ("$(origin VERBOSE)", "command line")
   BUILD_VERBOSE = $(VERBOSE)
 endif
@@ -30,4 +32,4 @@ else
 endif
 
 %:
-	$(Q)dh $@
+	$(Q)export PKG_CONFIG_PATH=/usr/lib/$(arch)-linux-gnu/pkgconfig && dh $@
