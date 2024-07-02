@@ -63,14 +63,16 @@ jobs:
           path: ./*.deb
 
   asusctl:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
+    container: debian:bookworm
     steps:
+      - run: apt udpate && apt install git build-essential dpkg-dev -y
       - run: |
           git clone https://github.com/NekoSekaiMoe/asus_linux_debian_test env
           git clone https://gitlab.com/asus-linux/asusctl src
       - run: |
           cd src
           cp ../env/asusctl ./debian -Rv
-          sudo apt update && sudo apt build-dep .
+          apt update && apt build-dep .
       - run: |
-          cd src && export PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig && sudo dpkg-buildpackage -b -us -uc
+          cd src && export PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig && dpkg-buildpackage -b -us -uc
