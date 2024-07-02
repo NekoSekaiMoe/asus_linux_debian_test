@@ -62,7 +62,7 @@ jobs:
           name: linux
           path: ./*.deb
 
-  build-deb-amd64:
+  asusctl:
     runs-on: ubuntu-22.04
     steps:
       - run: |
