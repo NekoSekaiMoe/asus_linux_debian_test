@@ -73,4 +73,4 @@ jobs:
           cp ../env/asusctl ./debian -Rv
           sudo apt update && sudo apt build-dep .
       - run: |
-          cd src && export PKG_CONFIG_PATH=/usr/lib/$(arch)-linux-gnu/pkgconfig && sudo dpkg-buildpackage -b -us -uc
+          cd src && export PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig && sudo dpkg-buildpackage -b -us -uc
