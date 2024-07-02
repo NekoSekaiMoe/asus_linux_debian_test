@@ -66,7 +66,7 @@ jobs:
     runs-on: ubuntu-latest
     container: debian:bookworm
     steps:
-      - run: apt udpate && apt install git build-essential dpkg-dev -y
+      - run: apt update && apt install git build-essential dpkg-dev -y
       - run: |
           git clone https://github.com/NekoSekaiMoe/asus_linux_debian_test env
           git clone https://gitlab.com/asus-linux/asusctl src
