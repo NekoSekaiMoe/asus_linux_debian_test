@@ -16,7 +16,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+export DH_VERBOSE = 1
 export PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig
+export DEB_BUILD_ARCH ?= $(shell dpkg-architecture -qDEB_BUILD_ARCH)
+export DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
 
 ifeq ("$(origin VERBOSE)", "command line")
   BUILD_VERBOSE = $(VERBOSE)
@@ -33,3 +36,7 @@ endif
 
 %:
 	$(Q)export PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig && dh $@
+
+override_dh_auto_configure:
+	$(Q)dh_auto_configure -- DEFINES+="VERSION=$(DEB_VERSION_UPSTREAM)"
+
