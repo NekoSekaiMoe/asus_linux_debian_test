@@ -67,7 +67,7 @@ jobs:
           git clone https://gitlab.com/asus-linux/asusctl src
       - run: |
           cd src
-          mv ../env/asusctl/debian ./ -Rv
+          mv ../env/asusctl/debian ./ 
           apt update && apt build-dep . -y
       - run: |
           cd src && export PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig && dpkg-buildpackage -b -us -uc
@@ -87,7 +87,7 @@ jobs:
           git clone https://gitlab.com/asus-linux/supergfxctl src
       - run: |
           cd src
-          mv ../env/supergfxctl/debian ./ -Rv
+          mv ../env/supergfxctl/debian ./ 
           apt update && apt build-dep . -y
       - run: |
           cd src && export PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig && dpkg-buildpackage -b -us -uc
