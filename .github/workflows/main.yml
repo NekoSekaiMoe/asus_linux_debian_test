@@ -97,7 +97,6 @@ jobs:
           name: supergfxctl
           path: ./*.deb
 
-jobs:
   live-build:
     needs:
       - linux
