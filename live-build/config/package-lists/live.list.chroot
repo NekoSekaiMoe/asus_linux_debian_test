@@ -1,0 +1,11 @@
+live-boot
+live-config
+live-config-systemd
+systemd-sysv
+debian-installer-launcher
+debian-installer
+debootstrap
+ca-certificates
+apt-transport-https
+live-tools
+user-setup

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+wget -O- https://deepin-wine.i-m.dev/setup.sh | sh
+#apt-get install deepin-wine6-stable -y
+wget -q https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-stable/microsoft-edge-stable_119.0.2151.72-1_amd64.deb -O /root/2.deb
+apt-get install /root/2.deb -y
+rm -rf -v 2.deb
+apt-get purge firefox-esr -y

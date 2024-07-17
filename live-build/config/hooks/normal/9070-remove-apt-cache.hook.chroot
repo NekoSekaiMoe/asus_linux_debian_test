@@ -1,0 +1,8 @@
+#!/bin/sh
+
+npm config set registry https://registry.npmmirror.com/
+rm -rf /var/lib/apt/lists
+rm -rf /var/cache/apt/archives
+apt-get update
+apt-get upgrade -y
+

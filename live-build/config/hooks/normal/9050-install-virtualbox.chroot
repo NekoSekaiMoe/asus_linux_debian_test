@@ -1,0 +1,12 @@
+#!/bin/sh
+
+wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | apt-key add -
+wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | apt-key add -
+echo "deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib" | \
+     tee -a /etc/apt/sources.list.d/virtualbox.list >/dev/null
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A6616109451BBBF2
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 99C7B2A3C98C969E
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 23E7166788B63E1E
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 23F3D4EA75716059
+apt-get update
+apt-get install virtualbox-7.0  tmoe-linux-tool xmcl lx-music-desktop -y

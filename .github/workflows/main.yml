@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-deb-amd64:
+  linux:
     runs-on: ubuntu-22.04
     steps:
       - run: |
@@ -96,3 +96,57 @@ jobs:
         with:
           name: supergfxctl
           path: ./*.deb
+
+jobs:
+  live-build:
+    needs:
+      - linux
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+    steps:
+    - run: mkdir deb
+    - name: Download linux
+      uses: actions/download-artifact@v4
+      with:
+        name: linux
+        path: deb
+    - name: Download supergfxctl
+      uses: actions/download-artifact@v4
+      with:
+        name: supergfxctl
+        path: deb
+    - name: Download asusctl
+      uses: actions/download-artifact@v4
+      with:
+        name: asusctl
+        path: deb
+    - run: rm -rf deb/asusctl-dbgsym_6.0.11_amd64.deb
+    - run: docker rmi -f $(docker images -q)
+    - run: wget -q https://raw.githubusercontent.com/Homebrew/install/master/uninstall.sh && NONINTERACTIVE=1 bash ./uninstall.sh -f -q
+    - run: sudo apt-get -y install debootstrap
+    - run: sudo debootstrap --arch=amd64 --variant=minbase bookworm rootfs
+    - name: mount
+      run: |
+        sudo mount -t proc /proc rootfs/proc
+        sudo mount --rbind /dev rootfs/dev
+        sudo mount --rbind /sys rootfs/sys
+        sudo mv deb rootfs/deb
+    - run: sudo chroot rootfs /bin/apt-get -y install python3 wget git live-build debian-archive-keyring gpg dosfstools genisoimage squashfs-tools xorriso grub-common grub-pc-bin grub-efi-amd64-bin nano
+    - run: sudo chroot rootfs /bin/wget https://github.com/dpkg123/lb-config/raw/main/build.py
+    - run: sudo chroot rootfs /bin/python3 /build.py
+    - run: sudo du -h -s rootfs/ci/live-build/live*.iso
+      continue-on-error: true
+    - name: upload iso
+      uses: actions/upload-artifact@v4
+      if: github.event_name == 'workflow_dispatch'
+      with:
+        name: iso-debian
+        path: rootfs/ci/live-build/live-image-amd64.hybrid.iso
+        retention-days: 14
+    - name: upload log
+      uses: actions/upload-artifact@v4
+      if: github.event_name == 'push'
+      with:
+        name: log
+        path: rootfs/ci/live-build/build.log

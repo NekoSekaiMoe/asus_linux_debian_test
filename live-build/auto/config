@@ -1,0 +1,41 @@
+#!/bin/sh
+
+set -e
+
+lb config noauto \
+    --architecture amd64 \
+    --archive-area "main contrib non-free non-free-firmware" \
+    --bootappend-live "boot=live components locales=zh_CN.UTF-8 keyboard-layouts=us" \
+    --debian-installer cdrom \
+    --debian-installer-distribution stable \
+    --debian-installer-gui true \
+    --distribution stable \
+    --iso-application "Buildroot" \
+    --iso-publisher "Buildroot Project" \
+    --iso-volume "Buildroot Live" \
+    --linux-packages "linux-image linux-headers" \
+    --security true \
+    --debug \
+    --apt-secure true \
+    --mirror-binary http://deb.debian.org/debian \
+    --mirror-binary-security https://security.debian.org/debian-security \
+    --mirror-bootstrap http://deb.debian.org/debian \
+    --mirror-chroot http://deb.debian.org/debian \
+    --mirror-chroot-security http://security.debian.org/debian-security \
+    --mirror-debian-installer http://deb.debian.org/debian \
+    --apt-indices false \
+    --apt-recommends false \
+    --updates true \
+    --uefi-secure-boot enable \
+    --color \
+    --utc-time true \
+    --verbose \
+    --debootstrap-options "--variant=minbase" \
+    --chroot-squashfs-compression-level 9 \
+    --chroot-squashfs-compression-type zstd \
+    --win32-loader false \
+    --loadlin false \
+    --debconf-priority medium \
+    --firmware-binary true \
+    --firmware-chroot true \
+    "${@}"
