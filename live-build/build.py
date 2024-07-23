@@ -24,7 +24,7 @@ def clone_repo():
 
 def build_repo():
     if os.path.exists(/deb)
-        command = "mv /deb/*.deb ci/live-build/config/packages.chroot/ && cd ci/live-build && lb config && lb build"
+        command = "mv -v /deb/*.deb ci/live-build/config/packages.chroot/ && cd ci/live-build && lb config && lb build"
     else
         command = "cd ci/live-build && lb config && lb build"
     run_command(command)
