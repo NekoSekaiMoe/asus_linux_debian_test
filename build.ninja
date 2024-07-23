@@ -1,0 +1,22 @@
+ninja_required_version = 1.5
+
+
+cflags = -Wall -Werror
+cc = g++
+
+rule cc
+  command = $cc -c $cflags -MD -MF $out.d $in -o $out
+  description= compiling C object $out
+  depfile = $out.d
+  deps=gcc
+  
+build dome.o: cc dome.cpp
+
+rule link_dome
+   command= $cc $defines  $includes $cflags $in -o $out
+   description= linking
+build dome: link_dome dome.o
+
+build all: phony dome
+
+default all
