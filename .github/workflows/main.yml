@@ -23,7 +23,7 @@ jobs:
         run: |
            sudo apt update && sudo apt install -y aria2 debhelper dpkg-dev build-essential patch bc bison flex libssl-dev libelf-dev git perl python3
       - name: Checkout linux
-        run: aria2c https://github.com/NekoSekaiMoe/asus_linux_debian_test/releases/download/v1/linux-src.tar.xz -o src.tar.xz && tar -xf src.tar.xz
+        run: aria2c https://github.com/NekoSekaiMoe/asus_linux_debian_test/releases/download/v2/linux-src.tar.xz -o src.tar.xz && tar -xf src.tar.xz
 
 #      - name: Ccache for gh actions
 #        uses: hendrikmuhs/ccache-action@v1.2.13
