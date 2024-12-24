@@ -1,0 +1,2 @@
+obj-m += src/asus-wmi.o
+obj-m += src/asus-nb-wmi.o
