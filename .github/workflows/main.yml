@@ -38,6 +38,7 @@ jobs:
           cp arch/x86/configs/asus_defconfig .config
           #make asus_defconfig
           bash config.sh
+          scripts/config --set-str CONFIG_LOCALVERSION "xanmod"
           make olddefconfig bindeb-pkg -j8
           rm -rf ../*dbg*.deb
 
