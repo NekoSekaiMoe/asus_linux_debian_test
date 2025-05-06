@@ -21,25 +21,27 @@ jobs:
           df -h
       - name: Install Build Tools
         run: |
-           sudo apt update && sudo apt install -y aria2 debhelper dpkg-dev build-essential patch bc bison flex libssl-dev libelf-dev git perl python3
+           sudo apt update && sudo apt install -y aria2 debhelper dpkg-dev build-essential patch bc bison flex libssl-dev libelf-dev git perl python3 ccache
       - name: Checkout linux
         run: aria2c https://github.com/NekoSekaiMoe/asus_linux_debian_test/releases/download/v2/linux-src.tar.xz -o src.tar.xz && tar -xf src.tar.xz
 
-#      - name: Ccache for gh actions
-#        uses: hendrikmuhs/ccache-action@v1.2.13
-#        with:
-#          max-size: 8192M
-#          key: ee2b31d23ae6068c6aecc2e81e4b71c40ed72654
+      - name: Ccache for gh actions
+        uses: hendrikmuhs/ccache-action@v1.2.13
+        with:
+          max-size: 2048M
+          key: ee2b31d23ae6068c6aecc2e81e4b71c40ed72654
+          create-symlink: true
 
       - name: Configure and build
         run: |
           cd src
           export USE_CCACHE=1
-          cp arch/x86/configs/asus_defconfig .config
+          export PATH="/usr/lib/ccache:/usr/local/opt/ccache/libexec:$PATH"
+          cp -v arch/x86/configs/asus_defconfig .config
           #make asus_defconfig
-          bash config.sh
+          bash -x config.sh
           scripts/config --set-str CONFIG_LOCALVERSION "xanmod"
-          make olddefconfig bindeb-pkg -j8
+          make CC="ccache gcc" olddefconfig bindeb-pkg -j8
           rm -rf ../*dbg*.deb
 
       #- name: build
