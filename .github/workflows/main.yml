@@ -26,10 +26,10 @@ jobs:
         run: aria2c https://github.com/NekoSekaiMoe/asus_linux_debian_test/releases/download/v2/linux-src.tar.xz -o src.tar.xz && tar -xf src.tar.xz
 
       - name: Ccache for gh actions
-        uses: hendrikmuhs/ccache-action@v1.2.13
+        uses: hendrikmuhs/ccache-action@v1.2
         with:
-          max-size: 2048M
-          key: ee2b31d23ae6068c6aecc2e81e4b71c40ed72654
+          max-size: 4096M
+          key: asus
           create-symlink: true
 
       - name: Configure and build
@@ -41,7 +41,7 @@ jobs:
           #make asus_defconfig
           bash -x config.sh
           scripts/config --set-str CONFIG_LOCALVERSION "xanmod"
-          make CC="ccache gcc" olddefconfig bindeb-pkg -j8
+          make CC="ccache gcc" HOSTCC="ccache gcc" olddefconfig bindeb-pkg -j8
           rm -rf ../*dbg*.deb
 
       #- name: build
