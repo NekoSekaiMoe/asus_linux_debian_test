@@ -13,9 +13,9 @@ jobs:
       - run: |
           df -h
           echo ---
-          #docker rmi -f $(docker images -q)
+          docker rmi -f $(docker images -q)
           aria2c -q https://raw.githubusercontent.com/Homebrew/install/master/uninstall.sh && NONINTERACTIVE=1 bash ./uninstall.sh -f -q
-          #sudo apt autopurge -y docker-buildx-plugin docker-ce-cli docker-ce containerd.io podman buildah skopeo kubectl temurin-*-jdk adoptium-ca-certificates openjdk-* ant ant-optional postgresql-* libpq-dev libmysqlclient* msodbcsql* mssql-tools unixodbc-dev mysql-client* mysql-common mysql-server* php*-*sql sphinxsearch mongodb* firefox google-chrome-stable microsoft-edge-stable xvfb apache2 apache2-* nginx nginx-* php-* php7* php8* session-manager-plugin azure-cli google-cloud-cli heroku gh subversion mercurial vim vim-* dotnet* aspnetcore* mono-* mono* libmono-* libmono* monodoc* msbuild nuget ruby* rake ri g++-9 g++-10 g++-12 gcc-9 gcc-10 gcc-12 gfortran-* clang-* libclang* llvm-* libllvm* lldb-* lld-* clang-format-* clang-tidy-* powershell r-base* r-cran* r-doc* r-recommended snapd man-db manpages libgtk-3-* ubuntu-mono *-icon-theme imagemagick imagemagick-6-common libgl1-mesa-dri firebird*
+          sudo apt autopurge -y docker-buildx-plugin docker-ce-cli docker-ce containerd.io podman buildah skopeo kubectl temurin-*-jdk adoptium-ca-certificates openjdk-* ant ant-optional postgresql-* libpq-dev libmysqlclient* msodbcsql* mssql-tools unixodbc-dev mysql-client* mysql-common mysql-server* php*-*sql sphinxsearch mongodb* firefox google-chrome-stable microsoft-edge-stable xvfb apache2 apache2-* nginx nginx-* php-* php7* php8* session-manager-plugin azure-cli google-cloud-cli heroku gh subversion mercurial vim vim-* dotnet* aspnetcore* mono-* mono* libmono-* libmono* monodoc* msbuild nuget ruby* rake ri g++-9 g++-10 g++-12 gcc-9 gcc-10 gcc-12 gfortran-* clang-* libclang* llvm-* libllvm* lldb-* lld-* clang-format-* clang-tidy-* powershell r-base* r-cran* r-doc* r-recommended snapd man-db manpages libgtk-3-* ubuntu-mono *-icon-theme imagemagick imagemagick-6-common libgl1-mesa-dri firebird*
           sudo rm -rf /usr/share/swift /usr/share/miniconda /usr/local/lib/node_modules /usr/share/mysql* /usr/local/lib/android/ /usr/lib/jvm/ /home/linuxbrew
           echo ---
           df -h
